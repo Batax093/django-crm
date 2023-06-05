@@ -13,12 +13,11 @@
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1",
-      "headers": { "cache-control": "max-age=0" }
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "waitress"
+      "dest": "waitress-serve"
     }
   ]
 }
