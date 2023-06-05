@@ -3,12 +3,12 @@ import environ, os
 
 env = environ.Env()
 
-# READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
+READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#if READ_DOT_ENV_FILE:
-#    environ.Env.read_env()
+if READ_DOT_ENV_FILE:
+    environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
 
