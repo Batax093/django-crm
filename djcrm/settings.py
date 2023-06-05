@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-ynmk24a_1tu!j0fg_)bw(0(o!5#vj*e1@@xne(_q3zf(b&ce!6'
 
-DEBUG = env('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
