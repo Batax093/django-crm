@@ -2,26 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "djcrm/wsgi.py",
+      "src": "waitress-serve --port $PORT djcrm.wsgi:application",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
         "runtime": "python3.9"
       }
-    },
-    {
-      "src": "runserver.sh",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/static/(.*)",
-      "dest": "static_root/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "runserver.sh"
+      "dest": "waitress-serve"
     }
   ]
 }
