@@ -14,7 +14,7 @@ if READ_DOT_ENV_FILE:
 
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = False
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
