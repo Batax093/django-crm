@@ -2,4 +2,4 @@ python manage.py collectstatic --no-input
 
 python manage.py migrate
 
-python manage.py runserver 0.0.0.0:$PORT
+uvicorn djcrm.asgi:application --host 0.0.0.0 --port $PORT
