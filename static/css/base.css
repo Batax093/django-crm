@@ -1,0 +1,21 @@
+html {
+    overflow: auto;
+    scrollbar-width: thin; /* Mengatur lebar scrollbar */
+    scrollbar-color: #000 #f5f5f5; /* Mengatur warna scrollbar */
+    scrollbar-gutter: stable both-edges;
+    
+    /* Untuk browser Webkit (seperti Chrome dan Safari) */
+    ::-webkit-scrollbar {
+      width: 5px; /* Mengatur lebar scrollbar */
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: #000; /* Mengatur warna thumb scrollbar */
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background-color: #f5f5f5; /* Mengatur warna track scrollbar */
+    }
+}
+  

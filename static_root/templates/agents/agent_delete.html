@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% load tailwind_filters %}
+
+{% block content %}
+  
+<div class="bg-gray-100 mt-10 rounded-lg p-8 max-w-lg mx-auto">
+    <div class="py-5 border-b border-gray-200">
+        <a class="hover:text-blue-500 mt-3" href="{% url 'agents:agent-list' %}">Kembali ke daftar customer</a>
+      </div>
+    <div class="mt-5 w-full flex justify-center items-center">
+      <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Apakah anda yakin ingin menghapus customer?</h2>
+    </div>
+  
+    <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
+            Hapus
+        </button>
+    </form>
+</div>
+
+{% endblock content %}
+
+<div class="bg-gray-100 mt-10 rounded-lg p-8 max-w-lg mx-auto">
+    <div class="py-5 border-b border-gray-200">
+        <a class="hover:text-blue-500 mt-3" href="{% url 'agents:agent-list' %}">Go back to agents</a>
+      </div>
+    <div class="w-full flex justify-center items-center">
+      <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Buat customer baru</h2>
+    </div>
+  
+    <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
+            Hapus
+        </button>
+    </form>
+</div>
