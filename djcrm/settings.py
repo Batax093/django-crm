@@ -69,11 +69,11 @@ WSGI_APPLICATION = 'djcrm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD':env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT')
+        'NAME': 'verceldb',
+        'USER': 'default',
+        'PASSWORD': 'XKz1irjyeR8l',
+        'HOST': 'ep-lingering-frog-349688-pooler.ap-southeast-1.postgres.vercel-storage.com',
+        'PORT': '5432'
     }
 }
 
