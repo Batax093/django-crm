@@ -4,9 +4,13 @@
     {
       "src": "djcrm/wsgi.py",
       "use": "@vercel/python",
+      "config": { "maxLamdaSize" : "15mb", "runtime": "python3.11"}
+    },
+    {
+      "src": "runserver.sh",
+      "use": "@vercel/static_root",
       "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.11"
+        "distDir": "static_root"
       }
     }
   ],
@@ -19,8 +23,5 @@
       "src": "/(.*)",
       "dest": "djcrm/wsgi.py"
     }
-  ],
-  "env": {
-    "DJANGO_SETTINGS_MODULE": "djcrm.settings"
-  }
+  ]
 }
