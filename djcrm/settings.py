@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 
-SECRET_KEY = 'django-insecure-ynmk24a_1tu!j0fg_)bw(0(o!5#vj*e1@@xne(_q3zf(b&ce!6'
+SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
@@ -69,11 +69,11 @@ WSGI_APPLICATION = 'djcrm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'verceldb',
-        'USER': 'default',
-        'PASSWORD': 'XKz1irjyeR8l',
-        'HOST': 'ep-lingering-frog-349688-pooler.ap-southeast-1.postgres.vercel-storage.com',
-        'PORT': '5432'
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD':env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT')
     }
 }
 
