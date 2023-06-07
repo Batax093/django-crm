@@ -2,10 +2,10 @@ version: 2
 builds:
   - name: Build
     command: |
-      yarn install
-      yarn build
+      python manage.py collectstatic --noinput
+      python manage.py migrate
   - name: Start
-    command: node runserver.sh
+    command: sh runserver.sh
     port: $PORT
 routes:
   - src: "/static/(.*)"
