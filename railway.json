@@ -8,7 +8,7 @@
     ],
     "start": {
       "name": "Start",
-      "command": "gunicorn your_project.wsgi:application",
+      "command": "gunicorn djcrm.wsgi:application",
       "port": "$PORT",
       "env": {
         "DATABASE_URL": "postgres://default:XKz1irjyeR8l@ep-lingering-frog-349688-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
