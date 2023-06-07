@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "name": "Build",
+        "command": "python manage.py collectstatic --noinput && python manage.py migrate"
+      }
+    ],
+    "start": {
+      "name": "Start",
+      "command": "gunicorn your_project.wsgi:application",
+      "port": "$PORT",
+      "env": {
+        "DATABASE_URL": "postgres://default:XKz1irjyeR8l@ep-lingering-frog-349688-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
+      }
+    },
+    "routes": [
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+      }
+    ]
+  }
+  
