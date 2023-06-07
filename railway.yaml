@@ -1,0 +1,12 @@
+version: 2
+builds:
+  - name: Build
+    command: |
+      yarn install
+      yarn build
+  - name: Start
+    command: node runserver.sh
+    port: $PORT
+routes:
+  - src: "/static/(.*)"
+    dest: "/static/$1"
