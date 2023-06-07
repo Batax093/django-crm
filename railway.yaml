@@ -4,9 +4,7 @@ builds:
     command: |
       python manage.py collectstatic --noinput
       python manage.py migrate
-  - name: start
-    command: gunicorn djcrm.wsgi:application --bind 0.0.0.0:$PORT
-    port: $PORT
+start: gunicorn djcrm.wsgi:application --bind 0.0.0.0:$PORT
 routes:
   - src: "/static/(.*)"
     dest: "/static/$1"
