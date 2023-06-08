@@ -1,1 +1,2 @@
-web: gunicorn --worker-tmp-dir /dev/shm djcrm.wsgi
+web: gunicorn myapp.wsgi:application --bind 127.0.0.1:8000
+
