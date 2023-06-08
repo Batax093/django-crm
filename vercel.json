@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "waitress-serve --port $PORT djcrm.wsgi:application",
+      "src": "gunicorn --bind :$PORT djcrm.wsgi:application",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
@@ -18,7 +18,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "waitress-serve"
+      "dest": "gunicorn"
     }
   ]
 }
