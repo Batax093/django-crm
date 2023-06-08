@@ -1,1 +1,1 @@
-web: gunicorn djcrm.wsgi:application
+web: gunicorn --worker-tmp-dir /dev/shm djcrm.wsgi
