@@ -1,3 +1,1 @@
-assets: python manage.py collectstatic --no-input
-release: python manage.py migrate
-web: gunicorn 'djcrm.wsgi:application'
+web: gunicorn djcrm.wsgi
