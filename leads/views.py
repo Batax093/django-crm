@@ -16,8 +16,12 @@ class SignupView(generic.CreateView):
     def get_success_url(self):
         return reverse("login")
 
+
 class LandingPageView(generic.TemplateView):
     template_name = "landing_page.html"
+
+def landing_page(request):
+    return render(request, 'landing_page.html')
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
     template_name = "leads/leads_list.html"
@@ -46,6 +50,14 @@ class LeadListView(LoginRequiredMixin, generic.ListView):
             })
         return context
 
+def leads_list(request):
+    leads = Lead.objects.all()
+    context = {
+        "leads": leads
+    }
+
+    return render(request, 'leads_list.html', context)
+
 class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "leads/lead_detail.html"
     context_object_name = 'lead'
@@ -60,6 +72,15 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
 
             queryset = queryset.filter(agent__user=user)
         return queryset
+
+def lead_detail(request, pk):
+    print(pk)
+    lead = Lead.objects.get(id=pk)
+    context = {
+        "lead": lead
+    }
+
+    return render(request, 'lead_detail.html', context)
 
 class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     template_name = "leads/lead_create.html"
@@ -81,6 +102,21 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         )
         return super(LeadCreateView, self).form_valid(form)
 
+def lead_create(request):
+    form = LeadModelForm()
+    if request.method == "POST":
+        form = LeadModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("The lead has been created")
+            return redirect("/leads")
+
+    context = {
+        "form": form 
+    }
+
+    return render(request, 'lead_create.html', context)
+
 class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     template_name = "leads/lead_update.html"
     form_class = LeadModelForm
@@ -92,6 +128,23 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse("leads:lead-list")
 
+def lead_update(request, pk):
+    lead = Lead.objects.get(id=pk)
+
+    form = LeadModelForm(instance=lead)
+    if request.method == "POST":
+        form = LeadModelForm(request.POST, instace = lead)
+        if form.is_valid():
+            lead.save()
+            return redirect('/leads')
+
+    context = {
+        "lead": lead,
+        "form": form
+    }
+    
+    return render(request, 'lead_update.html', context)
+
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     template_name = "leads/lead_delete.html"
 
@@ -101,6 +154,11 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     def get_queryset(self):
         user = self.request.user
         return Lead.objects.filter(organisation=user.userprofile)
+
+def lead_delete(request, pk):
+    lead = Lead.objects.all()
+    lead.delete()
+    return redirect("/leads")
 
 class AssignAgentView(OrganisorAndLoginRequiredMixin, generic.FormView):
     template_name = "assign_agent.html"
@@ -161,19 +219,6 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
             queryset = Category.objects.filter(organisation=user.agent.organisation)
         return queryset
     
-class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
-    template_name = 'categories/category_detail.html'
-
-    context_object_name = 'category'
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_organisor:
-            queryset = Category.objects.filter(organisation=user.userprofile)
-        else:
-            queryset = Category.objects.filter(organisation=user.agent.organisation)
-        return queryset
-
 class CategoryCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     template_name = "categories/category_create.html"
     form_class = CategoryModelForm
@@ -224,6 +269,19 @@ class CategoryDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
             queryset = Category.objects.filter(
                 organisation=user.agent.organisation
             )
+        return queryset
+    
+class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
+    template_name = 'categories/category_detail.html'
+
+    context_object_name = 'category'
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Category.objects.filter(organisation=user.userprofile)
+        else:
+            queryset = Category.objects.filter(organisation=user.agent.organisation)
         return queryset
 
 class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
