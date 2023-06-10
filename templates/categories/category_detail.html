@@ -4,9 +4,13 @@
 
 <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-col text-center w-full mb-20">
+      <div class="flex flex-col text-center w-full mb-16">
         <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">{{ category.name }}</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Berikut pengelola dengan tugas yang dimaksud</p>
+        <a href="{% url 'leads:category-list' %}" class="lg:w-2/3 mx-auto leading-relaxed text-base hover:text-blue-500">Kembali ke Daftar Tugas</a>
+        <div class="mx-auto lg:w-2/3 flex items-center justify-between mt-5">
+          <a href="{% url 'leads:category-update' category.pk %}" class="hover:text-blue-500">Ubah</a>
+          <a href="{% url 'leads:category-delete' category.pk %}" class="hover:text-blue-500">Hapus</a>
+        </div>
       </div>
       <div class="lg:w-2/3 w-full mx-auto overflow-auto">
         <table class="table-auto w-full text-left whitespace-no-wrap">
