@@ -1,22 +1,23 @@
 from pathlib import Path
-import environ, os
+from environ import environ
 
 env = environ.Env(
     DEBUG=(bool, False)
 )
 
 READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 
-SECRET_KEY = 'django-insecure-ynmk24a_1tu!j0fg_)bw(0(o!5#vj*e1@@xne(_q3zf(b&ce!6'
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = True
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
+
+# Application definition
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -27,15 +28,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "crispy_forms",
+    # Third party apps
+    'crispy_forms',
     "crispy_tailwind",
+    'tailwind',
 
+
+    # Local apps
     'leads',
     'agents',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -46,16 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://django-crm-production-7bd7.up.railway.app',
-]
-
 ROOT_URLCONF = 'djcrm.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'templates' ],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,16 +70,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djcrm.wsgi.application'
 
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('PGDATABASE'),
-        'USER': env('PGUSER'),
-        'PASSWORD':env('PGPASSWORD'),
-        'HOST': env('PGHOST'),
-        'PORT': env('PGPORT')
+        'NAME': env("PGDATABASE"),
+        'USER': env("PGUSER"),
+        'PASSWORD': env("PGPASSWORD"),
+        'HOST': env("PGHOST"),
+        'PORT': env("PGPORT"),
     }
 }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,39 +104,41 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = "media_root"
+STATIC_ROOT = "static_root"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'leads.User'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LOGIN_REDIRECT_URL = "/leads"
-
 LOGIN_URL = "/login"
-
 LOGOUT_REDIRECT_URL = "/"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-
-CRISPY_TEMPLATE_PACK = "tailwind"
+CRISPY_TEMPLATE_PACK = 'tailwind'
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -144,12 +154,26 @@ if not DEBUG:
 
     ALLOWED_HOSTS = ["*"]
 
-#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-#EMAIL_HOST = env("EMAIL_HOST")
-#EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-#EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = env("EMAIL_PORT")
-#DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = env("EMAIL_PORT")
+    DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
-# TAILWIND_APP_NAME = 'theme'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
