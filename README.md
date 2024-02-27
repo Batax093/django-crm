@@ -1,4 +1,4 @@
-# Django CRM
+## Django CRM
 
 Django CRM adalah aplikasi Customer Relationship Management (CRM) yang dibangun menggunakan framework Django. Aplikasi ini dirancang untuk membantu bisnis dalam mengelola dan melacak interaksi dengan pelanggan, pengelolaan penjualan, dan tugas-tugas terkait CRM lainnya.
 
