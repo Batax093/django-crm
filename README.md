@@ -1,7 +1,5 @@
 # Django CRM
 
-![Django CRM Logo](https://example.com/django-crm-logo.png)
-
 Django CRM adalah aplikasi Customer Relationship Management (CRM) yang dibangun menggunakan framework Django. Aplikasi ini dirancang untuk membantu bisnis dalam mengelola dan melacak interaksi dengan pelanggan, pengelolaan penjualan, dan tugas-tugas terkait CRM lainnya.
 
 ## Fitur Utama
@@ -21,18 +19,22 @@ Django CRM adalah aplikasi Customer Relationship Management (CRM) yang dibangun 
    git clone https://github.com/username/django-crm.git
 
 2. Install dependensi
-
+   
+   ```bash
    pip install -r requirements.txt
 
-3. Lakukan migrasi database
+4. Lakukan migrasi database
 
+   ```bash
    python manage.py migrate
 
-4. Tetapkan variabel
+5. Tetapkan variabel
 
+   ```bash
    READ_DOT_ENV_FILE=True
 
-5. Jalankan server lokal
+6. Jalankan server lokal
 
+   ```bash
    python manage.py runserver
 
